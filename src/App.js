@@ -12,12 +12,25 @@ class App extends Component {
     peopleVisible: false
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({people: [
-      {name: "John", age: 21},
-      {name: event.target.value, age: 19},
-      {name: 'Thomas', age: 21}
-    ]});
+  nameChangedHandler = (event ,id) => {
+    const personIndex = this.state.people.findIndex(p => {
+      return p.id === id; // hledám index prvku, který se shoduje s předaným id
+    });
+
+    const person = {
+      ...this.state.people[personIndex] 
+      /* ty tři tečky jsou spread operator
+       doplní všechny vlastnosti či metody, které daný objekt obsahuje */
+    }; 
+
+    person.name = event.target.value; // ukládám si do proměnné hodnotu v inputu
+
+    const people = [
+      ...this.state.people
+    ]; // vytvářím si nové pole prvků ze statu, abych jej mohl správně modifikovat
+    people[personIndex] = person; // změním v poli na daném indexu záznam
+
+    this.setState({people: people}); // updatuju state
   }
 
   togglePersonHandler = () => {
@@ -63,19 +76,10 @@ class App extends Component {
                 age={person.age} 
                 click={() =>this.deletePersonHandler(index)}
                 key = {person.id} // pro lepší a rychlejší zpracování změn
+                changeName={(event) => this.nameChangedHandler(event, person.id) // musím použít es6 zápis metody, abych mohl metodě předat parametry 
+                }
                 />)
-            })}
-          {/*
-          <Person name={this.state.people[0].name} age={this.state.people[0].age} />
-          <Person 
-            name={this.state.people[1].name}
-            age={this.state.people[1].age} 
-            click={this.switchNameHandler.bind(this, "Chorhe")}
-            changeName={this.nameChangedHandler.bind(this)}
-            >
-            I like trains.
-          </Person>
-          <Person name={this.state.people[2].name} age={this.state.people[2].age} /> */}
+          })}
         </div>
       );
     }
