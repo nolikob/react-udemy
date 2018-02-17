@@ -5,20 +5,11 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     people: [
-      {name: 'John', age: 20},
-      {name: 'George', age: 21},
-      {name: 'Tom', age: 19}
+      {id: 'gds', name: 'John', age: 20},
+      {id: 'grr', name: 'George', age: 21},
+      {id: 'wwgd', name: 'Tom', age: 19}
     ],
     peopleVisible: false
-  }
-  switchNameHandler = (newName) => {
-    //console.log('clicked');
-    // nemodifikovat state přímo, nebude to fungovat a react vyhodí warning
-    this.setState({people: [
-      {name: newName, age: 21},
-      {name: 'George', age: 19},
-      {name: 'Thomas', age: 21}
-    ]});
   }
 
   nameChangedHandler = (event) => {
@@ -34,6 +25,19 @@ class App extends Component {
     this.setState({
       peopleVisible: !isVisible
     });
+  }
+
+  deletePersonHandler = (index) => {
+    // maze uzivatele ze state objektu, tento postup, který je zakomentovaný může způsobit nepředvídatelné chování aplikace
+    // a proto bychom se jí měli vyhnout (nevytváříme totiž nové pole, máme jen jeho referenci)
+
+
+    // const people = this.state.people; -> vždy bychom se měi vyhnout přímé změně dat přes referenci
+
+    const people = [...this.state.people]; // vytvoříme kopii state pole people
+    people.splice(index,1);
+    this.setState({people: people});
+
   }
 
   render() {
@@ -53,8 +57,13 @@ class App extends Component {
       persons = (
         <div>
           {/* pro iteraci pers kazdy prvek ze statu people*/}
-          {this.state.people.map((person) => {
-              return (<Person name={person.name} age={person.age}/>)
+          {this.state.people.map((person, index) => {
+              return (<Person 
+                name={person.name}
+                age={person.age} 
+                click={() =>this.deletePersonHandler(index)}
+                key = {person.id} // pro lepší a rychlejší zpracování změn
+                />)
             })}
           {/*
           <Person name={this.state.people[0].name} age={this.state.people[0].age} />
