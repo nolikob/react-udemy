@@ -52,6 +52,11 @@ class App extends Component {
     if (this.state.peopleVisible) {
       persons = (
         <div>
+          {/* pro iteraci pers kazdy prvek ze statu people*/}
+          {this.state.people.map((person) => {
+              return (<Person name={person.name} age={person.age}/>)
+            })}
+          {/*
           <Person name={this.state.people[0].name} age={this.state.people[0].age} />
           <Person 
             name={this.state.people[1].name}
@@ -61,7 +66,7 @@ class App extends Component {
             >
             I like trains.
           </Person>
-          <Person name={this.state.people[2].name} age={this.state.people[2].age} />
+          <Person name={this.state.people[2].name} age={this.state.people[2].age} /> */}
         </div>
       );
     }
