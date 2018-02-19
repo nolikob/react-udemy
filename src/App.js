@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+//import Radium, {StyleRoot} from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -55,11 +56,16 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: "#ff9cad",
+      backgroundColor: "green",
+      color: "white",
       font: "inherit",
       border: "1px solid #ff33ee",
       padding: "12px",
-      cursor: "pointer"
+      cursor: "pointer",
+      ':hover':{
+        backgroundColor: "lightgreen",
+        color: "black"
+      }
     };
     
     // v Reactu není možné v render funkci používat blokové podmínky přímo v return metodě
@@ -82,16 +88,34 @@ class App extends Component {
           })}
         </div>
       );
+      style.backgroundColor = "red";
+      /*
+        style[':hover'] = {
+        backgroundColor: "purple",
+        color: 'black'
+        }
+      */
+    }
+    const classes = [];
+
+    if (this.state.people.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.people.length <= 1){
+      classes.push('bold');
     }
 
     return (
-      <div className="App">
-        <h1> Is it working ? </h1>
-        <button style={style} onClick={this.togglePersonHandler}>Show/Hide People</button>
-        {persons}
-      </div>
+      //<StyleRoot>
+        <div className="App">
+          <h1> Is it working ? </h1>
+          <p className={classes.join(' ')}>It indeed is working ;]</p>
+          <button style={style} onClick={this.togglePersonHandler}>Show/Hide People</button>
+          {persons}
+        </div>
+      //</StyleRoot>
     );
   }
 }
 
-export default App;
+export default App;// Radium(App);
