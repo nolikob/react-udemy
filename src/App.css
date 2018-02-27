@@ -2,10 +2,28 @@
   text-align: center;
 }
 
-.red {
-  color: red;
+.App button {
+  border: 2px solid cyan;
+  padding: 24px;
+  font: inherit;
+  background-color: whitesmoke;
+  cursor: pointer;
+  border-radius: 3px;
 }
 
-.bold {
+.App button:hover {
+  box-shadow: 1px 1px 3px cyan;
+}
+
+.App button.Red {
+  background-color: red;
+}
+
+.App button.Red:hover {
+  background-color: salmon;
+  color: white;
+}
+
+.App button.Bold {
   font-weight: bold;
 }

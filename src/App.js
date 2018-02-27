@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import myClasses from './App.css';
 //import Radium, {StyleRoot} from 'radium';
-import Person from './Person/Person';
+import Persons from './Persons/Persons';
 
 class App extends Component {
   state = {
@@ -55,6 +55,7 @@ class App extends Component {
   }
 
   render() {
+    /*
     const style = {
       backgroundColor: "green",
       color: "white",
@@ -67,28 +68,18 @@ class App extends Component {
         color: "black"
       }
     };
-    
+    */
+
     // v Reactu není možné v render funkci používat blokové podmínky přímo v return metodě
 
     // pokud se má používat normální if/else blok, je to možné udělat takto ↓
-    let persons = null;
+    let persons = false;
+
+    let buttonStyle = '';
     if (this.state.peopleVisible) {
-      persons = (
-        <div>
-          {/* pro iteraci pers kazdy prvek ze statu people*/}
-          {this.state.people.map((person, index) => {
-              return (<Person 
-                name={person.name}
-                age={person.age} 
-                click={() =>this.deletePersonHandler(index)}
-                key = {person.id} // pro lepší a rychlejší zpracování změn
-                changeName={(event) => this.nameChangedHandler(event, person.id) // musím použít es6 zápis metody, abych mohl metodě předat parametry 
-                }
-                />)
-          })}
-        </div>
-      );
-      style.backgroundColor = "red";
+      persons = true;
+      buttonStyle = myClasses.Red;
+      // style.backgroundColor = "red";
       /*
         style[':hover'] = {
         backgroundColor: "purple",
@@ -99,19 +90,19 @@ class App extends Component {
     const classes = [];
 
     if (this.state.people.length <= 2) {
-      classes.push('red');
+      classes.push(myClasses.red);
     }
     if (this.state.people.length <= 1){
-      classes.push('bold');
+      classes.push(myClasses.bold);
     }
 
     return (
       //<StyleRoot>
-        <div className="App">
+        <div className={myClasses.App}>
           <h1> Is it working ? </h1>
           <p className={classes.join(' ')}>It indeed is working ;]</p>
-          <button style={style} onClick={this.togglePersonHandler}>Show/Hide People</button>
-          {persons}
+          <button className={buttonStyle} onClick={this.togglePersonHandler}>Show/Hide People</button>
+          {persons === true ? <Persons people={this.state.people} deletePerson={this.deletePersonHandler}/> : null}
         </div>
       //</StyleRoot>
     );

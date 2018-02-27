@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import Radium from 'radium';
-import './Person.css';
+import myClasses from './Person.css';
 
 class Person extends Component {
     render(){      
@@ -10,7 +10,7 @@ class Person extends Component {
             }
         };
         return(
-            <div className="Person" style={style}>
+            <div className={myClasses.Person} style={style}>
                 <p onClick={this.props.click}>Hi, I'm {this.props.name} and I am {this.props.age} years old.</p>
                 <p>{this.props.children}</p>
                 <input type="text" onChange={this.props.changeName} value={this.props.name}/>
