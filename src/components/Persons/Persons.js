@@ -2,7 +2,6 @@ import React from 'react';
 import Person from './Person/Person'
 
 class Persons extends React.Component {
-    
     render(){
         return(
             <div>
@@ -14,7 +13,7 @@ class Persons extends React.Component {
                         age={person.age} 
                         click={() =>this.props.deletePerson(index)}
                         key = {person.id} // pro lepší a rychlejší zpracování změn
-                        changeName={(event) => this.nameChangedHandler(event, person.id) // musím použít es6 zápis metody, abych mohl metodě předat parametry 
+                        changeName={(event) => this.props.changeName(event, person.id) // musím použít es6 zápis metody, abych mohl metodě předat parametry 
                         }
                     />)
                 })}

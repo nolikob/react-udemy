@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import myClasses from './App.css';
 //import Radium, {StyleRoot} from 'radium';
-import Persons from './Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+import Persons from '../components/Persons/Persons';
 
 class App extends Component {
   state = {
@@ -99,10 +100,9 @@ class App extends Component {
     return (
       //<StyleRoot>
         <div className={myClasses.App}>
-          <h1> Is it working ? </h1>
-          <p className={classes.join(' ')}>It indeed is working ;]</p>
+          <Cockpit amountOfPeople={this.state.people.length}/>
           <button className={buttonStyle} onClick={this.togglePersonHandler}>Show/Hide People</button>
-          {persons === true ? <Persons people={this.state.people} deletePerson={this.deletePersonHandler}/> : null}
+          {persons === true ? <Persons people={this.state.people} deletePerson={this.deletePersonHandler} changeName={this.nameChangedHandler}/> : null}
         </div>
       //</StyleRoot>
     );
