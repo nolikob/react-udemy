@@ -76,10 +76,8 @@ class App extends Component {
     // pokud se má používat normální if/else blok, je to možné udělat takto ↓
     let persons = false;
 
-    let buttonStyle = '';
     if (this.state.peopleVisible) {
       persons = true;
-      buttonStyle = myClasses.Red;
       // style.backgroundColor = "red";
       /*
         style[':hover'] = {
@@ -100,8 +98,7 @@ class App extends Component {
     return (
       //<StyleRoot>
         <div className={myClasses.App}>
-          <Cockpit amountOfPeople={this.state.people.length}/>
-          <button className={buttonStyle} onClick={this.togglePersonHandler}>Show/Hide People</button>
+          <Cockpit amountOfPeople={this.state.people.length} showPeople={this.state.peopleVisible} showingHandler={this.togglePersonHandler}/>
           {persons === true ? <Persons people={this.state.people} deletePerson={this.deletePersonHandler} changeName={this.nameChangedHandler}/> : null}
         </div>
       //</StyleRoot>
